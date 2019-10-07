@@ -1,0 +1,19 @@
+#ifndef CHORIZO_CONFIG_H_
+#define CHORIZO_CONFIG_H_
+
+namespace chorizo {
+constexpr auto CHORIZO_VERSION = "@Chorizo_VERSION@";
+constexpr auto CHORIZO_VERSION_MAJOR = @Chorizo_VERSION_MAJOR@;
+constexpr auto CHORIZO_VERSION_MINOR = @Chorizo_VERSION_MINOR@;
+constexpr auto CHORIZO_VERSION_PATCH = @Chorizo_VERSION_PATCH@;
+
+constexpr auto CHORIZO_COMPILED_COMPILER = "@CMAKE_CXX_COMPILER@";
+constexpr auto CHORIZO_COMPILED_SYSTEM = "@CMAKE_SYSTEM@";
+constexpr auto CHORIZO_COMPILED_GENERATOR = "@CMAKE_GENERATOR@";
+constexpr auto CHORIZO_COMPILED_COMMIT_HASH = "@CHORIZO_GIT_COMMIT_HASH@";
+constexpr auto CHORIZO_COMPILED_BRANCH = "@CHORIZO_GIT_BRANCH@";
+
+constexpr auto CHORIZO_RESOURCES_DEV = "@CHORIZO_RESOURCES_DIR@";
+}
+
+#endif

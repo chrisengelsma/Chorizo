@@ -1,0 +1,35 @@
+# This creates the IMPORTED TARGET Chorizo::Chorizo
+#
+# To use this...
+# target_link_libraries(yourliborexe Chorizo::Chorizo)
+#
+# Optionally use PRIVATE/PUBLIC based on your needs like so...
+# target_link_libraries(yourliborexe PRIVATE Chorizo::Chorizo)
+#
+# Because it's an IMPORTED TARGET, you don't need to include its headers seperately, it's handled for you
+#
+# If you installed the "Resources" dir, then they can be accessed externally with ${CHORIZO_RESOURCES_DIR}
+
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+# Since these are required for PUBLIC usage, they must be found here
+# Includes the targets which are in the same dir as this file
+# So CMAKE_CURRENT_LIST_DIR will be determined when calling find_package(Chorizo)
+include(${CMAKE_CURRENT_LIST_DIR}/ChorizoTargets.cmake)
+
+if(TARGET Chorizo::Chorizo)
+	# If resources were installed, then save their path to be used by other projects in a var
+	if(@CHORIZO_INSTALL_RESOURCES@)
+		set_and_check(CHORIZO_RESOURCES_DIR "@PACKAGE_CMAKE_INSTALL_DATADIR@/Chorizo/Resources")
+	endif()
+	# Note "Found Chorizo: " will be automatically prefixed by find_package_handle_standard_args
+	# Example output when doing find_package(Chorizo)...
+	# -- Found Chorizo: /usr/lib/libChorizo.so  
+	get_property(_CHORIZO_TARGET_LOCATION TARGET Chorizo::Chorizo PROPERTY LOCATION)
+endif()
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(Chorizo
+		FOUND_VAR CHORIZO_FOUND
+		REQUIRED_VARS _CHORIZO_TARGET_LOCATION
+		)
