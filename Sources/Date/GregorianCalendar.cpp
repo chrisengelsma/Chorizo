@@ -5,42 +5,47 @@
 
 namespace chorizo
 {
-    const std::string GregorianCalendar::MonthName(int month)
+    std::string GregorianCalendar::MonthName(int month)
     {
         assert (month > 0 && month < 13);
         return GregorianCalendarConstants::MonthNames[month - 1];
     }
 
-    const std::string GregorianCalendar::WeekDayName(int weekDayNumber)
+    std::string GregorianCalendar::WeekDayName(int weekDayNumber)
     {
-
+        assert(weekDayNumber > 0 && weekDayNumber < 7);
+        return "hi";
     }
 
     GregorianCalendar::GregorianCalendar()
     {
-        time_t now = time(0);
-        *this = GregorianCalendar(std::localtime(&now));
-    }
+        time_t now     = time(nullptr);
+        auto   nowTime = std::localtime(&now);
 
-    GregorianCalendar::GregorianCalendar(const GregorianCalendar& cal)
-        :  GregorianCalendar(cal.getYear(), cal.getMonth(), cal.getDay())
-    {
+        m_day       = nowTime->tm_mday;
+        m_month     = nowTime->tm_mon + 1;
+        m_year      = nowTime->tm_year;
+        m_julianDay = AlmanacConverter::ToJulianDay(this);
     }
 
     GregorianCalendar::GregorianCalendar(tm* time)
         : GregorianCalendar(time->tm_year, time->tm_mon + 1, time->tm_mday)
-    {
-    }
+    { }
 
-    GregorianCalendar::GregorianCalendar(const Almanac& almanac)
-        : GregorianCalendar(AlmanacConverter::ToGregorianCalendar(almanac))
+    GregorianCalendar::GregorianCalendar(Almanac* almanac)
     {
+        auto cal = AlmanacConverter::ToGregorianCalendar(almanac);
+
+        m_day       = cal->m_day;
+        m_month     = cal->m_month;
+        m_year      = cal->m_year;
+        m_julianDay = cal->m_julianDay;
     }
 
     GregorianCalendar::GregorianCalendar(const int& year, const int& month, const int& day)
         : m_year(year), m_month(month), m_day(day)
     {
-        m_julianDay = AlmanacConverter::ToJulianDay(*this);
+        m_julianDay = AlmanacConverter::ToJulianDay(this);
     }
 
     std::string GregorianCalendar::getMonthName() const
@@ -51,11 +56,6 @@ namespace chorizo
     std::string GregorianCalendar::getWeekDay() const
     {
         return WeekDayName(getWeekDayNumber());
-    }
-
-    std::string GregorianCalendar::getName() const
-    {
-        return "Gregorian Calendar";
     }
 
     std::string GregorianCalendar::getDateString() const

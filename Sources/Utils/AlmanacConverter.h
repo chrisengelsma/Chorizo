@@ -6,7 +6,6 @@
 namespace chorizo
 {
     class Almanac;
-    class JulianDay;
     class GregorianCalendar;
 }
 
@@ -15,12 +14,12 @@ namespace chorizo
     class AlmanacConverter
     {
     public:
-        static double ToJulianDay(const Almanac& almanac);
-        static GregorianCalendar ToGregorianCalendar(const Almanac& almanac);
+        static double ToJulianDay(Almanac* almanac);
+        static GregorianCalendar* ToGregorianCalendar(Almanac* almanac);
 
     private:
-        static double g2jd(const GregorianCalendar& gc);
-        static GregorianCalendar jd2g(const double& jd);
+        static double g2jd(GregorianCalendar* gc);
+        static GregorianCalendar* jd2g(const double& jd);
     };
 }
 

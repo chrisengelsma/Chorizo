@@ -14,25 +14,29 @@ namespace chorizo
         int m_day{};
 
     public:
-        static const std::string MonthName(int month);
-        static const std::string WeekDayName(int weekDayNumber);
+        static std::string MonthName(int month);
+        static std::string WeekDayName(int weekDayNumber);
 
         GregorianCalendar();
-        GregorianCalendar(const GregorianCalendar& cal);
         GregorianCalendar(const int& year, const int& month, const int& day);
+
         explicit GregorianCalendar(tm* time);
-        explicit GregorianCalendar(const Almanac& almanac);
+        explicit GregorianCalendar(Almanac* almanac);
 
-        int getYear()  const { return m_year; }
-        int getMonth() const { return m_year; }
-        int getDay()   const { return m_year; }
+        [[nodiscard]] int getYear()  const { return m_year; }
+        [[nodiscard]] int getMonth() const { return m_month; }
+        [[nodiscard]] int getDay()   const { return m_day; }
 
-        std::string getMonthName() const;
-        std::string getWeekDay() const override;
+        [[nodiscard]] std::string getMonthName() const;
 
-        std::string getDateString() const override;
-        std::string getName() const override;
+        // Almanac
+        [[nodiscard]] std::string getDateString() const override;
+        [[nodiscard]] std::string getWeekDay() const override;
 
+    protected:
+        const std::string m_name{"Gregorian Calendar"};
+        const size_t m_daysPerWeek{7};
+        const size_t m_monthsPerYear{12};
 
     };
 }

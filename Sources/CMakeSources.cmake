@@ -1,25 +1,21 @@
 # All of these will be set as PUBLIC sources to Chorizo
 set(_temp_chorizo_headers
-
+        Astro/Season.h
+        Astro/Meeus.h
         Const/CalendarConstants.h
-
         Date/Almanac.h
         Date/GregorianCalendar.h
-
+        Utils/Maths.h
         Utils/AlmanacConverter.h
-
         )
 
 # All of these will be set as PRIVATE sources to Chorizo
 set(_temp_chorizo_sources
-
+        Astro/Meeus.cpp
         Const/CalendarConstants.cpp
-
         Date/Almanac.cpp
         Date/GregorianCalendar.cpp
-
         Utils/AlmanacConverter.cpp
-
         )
 
 # Adds the precompiled header

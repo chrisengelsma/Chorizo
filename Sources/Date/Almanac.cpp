@@ -1,19 +1,12 @@
 #include "Almanac.h"
 
+#include <Utils/AlmanacConverter.h>
+
 namespace chorizo
 {
-    Almanac::Almanac(const Almanac& a)
-        : Almanac(a.getJulianDay())
+    double Almanac::getJulianDay()
     {
-    }
-
-    Almanac::Almanac(const double& julianDay)
-        : m_julianDay(julianDay)
-    {
-    }
-
-    double Almanac::getJulianDay() const
-    {
+        m_julianDay = AlmanacConverter::ToJulianDay(this);
         return m_julianDay;
     }
 
@@ -22,14 +15,12 @@ namespace chorizo
         return static_cast<int>(std::floor(m_julianDay + 1.5)) % getNumberOfDaysInAWeek();
     }
 
-    int Almanac::getNumberOfDaysInAWeek() const
+    Almanac* Almanac::operator+=(const int& days)
     {
-        return 7;
     }
 
-    std::string Almanac::getWeekDay() const
+    Almanac* Almanac::operator-=(const int& days)
     {
-        return "";
     }
 
     std::string Almanac::toString() const

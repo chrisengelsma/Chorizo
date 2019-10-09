@@ -9,35 +9,46 @@ namespace chorizo
     {
     protected:
         double m_julianDay{};
+        std::string m_name{};
+        size_t m_daysPerWeek{};
+        size_t m_monthsPerYear{};
 
     public:
         Almanac() = default;
-        Almanac(const Almanac& a);
-        explicit Almanac(const double& julianDay);
+        Almanac(const Almanac& a) = default;
 
         virtual ~Almanac() = default;
 
-        virtual std::string getName() const = 0;
-        virtual std::string getDateString() const = 0;
+        [[nodiscard]] double getJulianDay();
+        [[nodiscard]] double getModifiedJulianDay() { return m_julianDay - Epoch; }
 
-        double getJulianDay() const;
+        [[nodiscard]] size_t getNumberOfDaysInAWeek() const { return m_daysPerWeek; }
+        [[nodiscard]] size_t getNumberOfMonthsInAYear() const { return m_monthsPerYear; }
+        [[nodiscard]] std::string getName() const { return m_name; }
 
-        std::string toString() const;
+        [[nodiscard]] virtual std::string getDateString() const = 0;
+        [[nodiscard]] virtual std::string getWeekDay() const = 0;
+        virtual void updateFrom() const = 0;
 
-        int getWeekDayNumber() const;
+        [[nodiscard]] int getWeekDayNumber() const;
 
-        virtual int getNumberOfDaysInAWeek() const;
-        virtual std::string getWeekDay() const;
+        Almanac* operator+=(const int& days);
+        Almanac* operator-=(const int& days);
 
+        [[nodiscard]] std::string toString() const;
         friend std::ostream& operator<<(std::ostream& stream, const Almanac& a);
 
-        friend bool operator>  (const Almanac& lhs, const Almanac& rhs);
-        friend bool operator>= (const Almanac& lhs, const Almanac& rhs);
-        friend bool operator<  (const Almanac& lhs, const Almanac& rhs);
-        friend bool operator<= (const Almanac& lhs, const Almanac& rhs);
-        friend bool operator== (const Almanac& lhs, const Almanac& rhs);
-        friend bool operator!= (const Almanac& lhs, const Almanac& rhs);
+        friend bool operator> (const Almanac& lhs, const Almanac& rhs);
+        friend bool operator>=(const Almanac& lhs, const Almanac& rhs);
+        friend bool operator< (const Almanac& lhs, const Almanac& rhs);
+        friend bool operator<=(const Almanac& lhs, const Almanac& rhs);
+        friend bool operator==(const Almanac& lhs, const Almanac& rhs);
+        friend bool operator!=(const Almanac& lhs, const Almanac& rhs);
+
+    private:
+        static constexpr double Epoch = 2400000.5;
     };
+
 }
 
 #endif
