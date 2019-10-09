@@ -2,11 +2,11 @@
 #define CHORIZO_GREGORIANCALENDAR_H_
 
 #include "StdAfx.h"
-#include "Almanac.h"
+#include "JulianDay.h"
 
 namespace chorizo
 {
-    class CHORIZO_EXPORT GregorianCalendar : public Almanac
+    class CHORIZO_EXPORT GregorianCalendar : public JulianDay
     {
     private:
         int m_year{};
@@ -15,25 +15,40 @@ namespace chorizo
 
     public:
         static std::string MonthName(int month);
+
         static std::string WeekDayName(int weekDayNumber);
 
         GregorianCalendar();
+
+        GregorianCalendar(const GregorianCalendar& cal);
+
         GregorianCalendar(const int& year, const int& month, const int& day);
 
         explicit GregorianCalendar(tm* time);
-        explicit GregorianCalendar(Almanac* almanac);
 
-        [[nodiscard]] int getYear()  const { return m_year; }
-        [[nodiscard]] int getMonth() const { return m_month; }
-        [[nodiscard]] int getDay()   const { return m_day; }
+        explicit GregorianCalendar(JulianDay* almanac);
 
-        [[nodiscard]] std::string getMonthName() const;
+        int getYear()  const { return m_year; }
 
-        // Almanac
-        [[nodiscard]] std::string getDateString() const override;
-        [[nodiscard]] std::string getWeekDay() const override;
+        int getMonth() const { return m_month; }
+
+        int getDay()   const { return m_day; }
+
+        void setDay(const int& day);
+
+        void setMonth(const int& month);
+
+        void setYear(const int& year);
+
+        std::string getMonthName() const;
+
+        // JulianDay
+        std::string getDateString() const override;
+        std::string getWeekDay() const override;
 
     protected:
+        void update() override;
+
         const std::string m_name{"Gregorian Calendar"};
         const size_t m_daysPerWeek{7};
         const size_t m_monthsPerYear{12};
@@ -41,4 +56,4 @@ namespace chorizo
     };
 }
 
-#endif
+#endif // CHORIZO_GREGORIANCALENDAR_H_

@@ -6,7 +6,7 @@
 
 #include "Const/CalendarConstants.h"
 
-#include "Date/Almanac.h"
+#include "Date/JulianDay.h"
 #include "Date/GregorianCalendar.h"
 
 #include "Utils/Maths.h"

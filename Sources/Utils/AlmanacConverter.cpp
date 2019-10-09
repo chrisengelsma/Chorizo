@@ -1,27 +1,26 @@
 #include "AlmanacConverter.h"
 
-#include <Date/Almanac.h>
+#include <Date/JulianDay.h>
 #include <Date/GregorianCalendar.h>
 
 namespace chorizo
 {
-    double AlmanacConverter::ToJulianDay(Almanac* almanac)
+    double AlmanacConverter::ToJulianDay(JulianDay* julianDay)
     {
-        auto gregorianCalendar = dynamic_cast<GregorianCalendar*>(almanac);
+        auto gregorianCalendar = dynamic_cast<GregorianCalendar*>(julianDay);
         if (gregorianCalendar != nullptr)
         {
             return g2jd(gregorianCalendar);
         }
         else
         {
-            return 0;
+            return julianDay->getJulianDay();
         }
     }
 
-    GregorianCalendar* AlmanacConverter::ToGregorianCalendar(Almanac* almanac)
+    GregorianCalendar* AlmanacConverter::ToGregorianCalendar(JulianDay* julianDay)
     {
-        GregorianCalendar* cal = dynamic_cast<GregorianCalendar*>(almanac);
-        return (cal == nullptr) ? jd2g(ToJulianDay(almanac)) : cal;
+        return jd2g(julianDay->getJulianDay());
     }
 
     //////////////////////////////////////////////////////////////////////////
