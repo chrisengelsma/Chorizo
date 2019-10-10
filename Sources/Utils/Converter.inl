@@ -1,11 +1,23 @@
-#include "AlmanacConverter.h"
+#include "Converter.h"
 
+#include <StdAfx.h>
 #include <Date/JulianDay.h>
 #include <Date/GregorianCalendar.h>
 
 namespace chorizo
 {
-    double AlmanacConverter::ToJulianDay(JulianDay* julianDay)
+    template<typename TFrom, typename TTo>
+    TTo* Converter::Convert(TFrom* cal)
+    {
+        if constexpr (std::is_same<TTo, GregorianCalendar*>::value)
+        {
+        }
+
+        return cal;
+    }
+
+    /*
+    double Converter::ToJulianDay(JulianDay* julianDay)
     {
         auto gregorianCalendar = dynamic_cast<GregorianCalendar*>(julianDay);
         if (gregorianCalendar != nullptr)
@@ -18,15 +30,16 @@ namespace chorizo
         }
     }
 
-    GregorianCalendar* AlmanacConverter::ToGregorianCalendar(JulianDay* julianDay)
+    GregorianCalendar* Converter::ToGregorianCalendar(JulianDay* julianDay)
     {
         return jd2g(julianDay->getJulianDay());
     }
 
+     */
     //////////////////////////////////////////////////////////////////////////
     // private
 
-    double AlmanacConverter::g2jd(GregorianCalendar* cal)
+    double Converter::g2jd(GregorianCalendar* cal)
     {
         int month = cal->getMonth();
         int year  = cal->getYear();
@@ -46,7 +59,7 @@ namespace chorizo
         return c + day + e + f - 1524.5;
     }
 
-    GregorianCalendar* AlmanacConverter::jd2g(const double& jd)
+    GregorianCalendar* Converter::jd2g(const double& jd)
     {
         int J = static_cast<int>(lround(jd + 0.5));
         int y = 4716, j = 1401, m = 2;

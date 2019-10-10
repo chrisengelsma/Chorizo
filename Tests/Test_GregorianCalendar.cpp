@@ -37,6 +37,33 @@ TEST(GregorianCalendar, SetDay)
     EXPECT_EQ(cal0->getJulianDay(), 2446865.5);
 }
 
+TEST(GregorianCalendar, SetMonth)
+{
+    auto cal0 = new GregorianCalendar(1987, 3, 10);
+    cal0->setMonth(9);
+
+    EXPECT_EQ(cal0->getYear(), 1987);
+    EXPECT_EQ(cal0->getMonth(), 9);
+    EXPECT_EQ(cal0->getDay(), 10);
+    EXPECT_EQ(cal0->getJulianDay(), 2447048.5);
+}
+
+TEST(GregorianCalendar, SetYear)
+{
+    auto cal0 = new GregorianCalendar(1987, 3, 10);
+    cal0->setYear(1986);
+
+    EXPECT_EQ(cal0->getYear(), 1986);
+    EXPECT_EQ(cal0->getMonth(), 3);
+    EXPECT_EQ(cal0->getDay(), 10);
+    EXPECT_EQ(cal0->getJulianDay(), 2446499.5);
+}
+
+TEST(GregorianCalendar, GetNumberOfDaysPerWeek)
+{
+
+}
+
 TEST(GregorianCalendar, SetJulianDay)
 {
     auto cal0 = new GregorianCalendar(1986, 9, 3);

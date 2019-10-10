@@ -6,7 +6,7 @@ set(_temp_chorizo_headers
         Date/JulianDay.h
         Date/GregorianCalendar.h
         Utils/Maths.h
-        Utils/AlmanacConverter.h
+        Utils/Converter.h
         )
 
 # All of these will be set as PRIVATE sources to Chorizo
@@ -15,7 +15,7 @@ set(_temp_chorizo_sources
         Helpers/CalendarConstants.cpp
         Date/JulianDay.cpp
         Date/GregorianCalendar.cpp
-        Utils/AlmanacConverter.cpp
+        Utils/Converter.inl
         )
 
 # Adds the precompiled header

@@ -1,7 +1,7 @@
 #include "GregorianCalendar.h"
 
 #include <Helpers/CalendarConstants.h>
-#include <Utils/AlmanacConverter.h>
+#include <Utils/Converter.h>
 
 namespace chorizo
 {
@@ -25,7 +25,7 @@ namespace chorizo
         m_day   = nowTime->tm_mday;
         m_month = nowTime->tm_mon + 1;
         m_year  = nowTime->tm_year;
-        m_jday  = AlmanacConverter::ToJulianDay(this);
+        m_jday  = Converter::ToJulianDay(this);
     }
 
     GregorianCalendar::GregorianCalendar(const GregorianCalendar& cal)
@@ -42,7 +42,7 @@ namespace chorizo
 
     GregorianCalendar::GregorianCalendar(JulianDay* julianDay)
     {
-        auto cal = AlmanacConverter::ToGregorianCalendar(julianDay);
+        auto cal = Converter::ToGregorianCalendar(julianDay);
 
         m_day   = cal->m_day;
         m_month = cal->m_month;
@@ -74,11 +74,15 @@ namespace chorizo
         updateInternal();
     }
 
+    bool GregorianCalendar::isLeapYear() const
+    {
+        GregorianCalendar* epoch = Converter::ToGregorianCalendar(m_epoch);
+    }
 
     GregorianCalendar::GregorianCalendar(const int& year, const int& month, const int& day)
         : m_year(year), m_month(month), m_day(day)
     {
-        m_jday = AlmanacConverter::ToJulianDay(this);
+        m_jday = Converter::ToJulianDay(this);
     }
 
     std::string GregorianCalendar::getMonthName() const
@@ -98,7 +102,7 @@ namespace chorizo
 
     void GregorianCalendar::update()
     {
-        auto cal = AlmanacConverter::ToGregorianCalendar(this);
+        auto cal = Converter::ToGregorianCalendar(this);
         m_month = cal->getMonth();
         m_day = cal->getDay();
         m_year = cal->getYear();

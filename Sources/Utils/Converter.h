@@ -1,5 +1,5 @@
-#ifndef CHORIZO_ALMANACCONVERTER_H_
-#define CHORIZO_ALMANACCONVERTER_H_
+#ifndef CHORIZO_CONVERTER_H_
+#define CHORIZO_CONVERTER_H_
 
 #include "StdAfx.h"
 
@@ -11,16 +11,18 @@ namespace chorizo
 
 namespace chorizo
 {
-    class AlmanacConverter
+    template<typename T>
+    class Converter
     {
     public:
-        static double ToJulianDay(JulianDay* julianDay);
-        static GregorianCalendar* ToGregorianCalendar(JulianDay* julianDay);
+        static GregorianCalendar* ToGregorianCalendar(T* cal);
 
     private:
         static double g2jd(GregorianCalendar* gc);
         static GregorianCalendar* jd2g(const double& jd);
     };
 }
+
+#include "Converter.inl"
 
 #endif

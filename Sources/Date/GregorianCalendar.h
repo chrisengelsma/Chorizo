@@ -28,6 +28,8 @@ namespace chorizo
 
         explicit GregorianCalendar(JulianDay* almanac);
 
+        bool isLeapYear() const;
+
         int getYear()  const { return m_year; }
 
         int getMonth() const { return m_month; }
@@ -50,9 +52,8 @@ namespace chorizo
         void update() override;
 
         const std::string m_name{"Gregorian Calendar"};
-        const size_t m_daysPerWeek{7};
-        const size_t m_monthsPerYear{12};
-
+        const uint32_t m_daysPerWeek{7};
+        const uint32_t m_monthsPerYear{12};
     };
 }
 

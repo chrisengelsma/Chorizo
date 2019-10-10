@@ -7,36 +7,27 @@ namespace chorizo
 {
     class CHORIZO_EXPORT JulianDay
     {
-    protected:
-        double m_jday{};
-
-        std::string m_name{};
-        size_t m_daysPerWeek{};
-        size_t m_monthsPerYear{};
 
     public:
         JulianDay() = default;
 
-        JulianDay(const JulianDay& a) = default;
-
         virtual ~JulianDay() = 0;
 
-        double getJulianDay() const { return m_jday; }
+        virtual std::string getDateString() const = 0;
+
+        virtual std::string getWeekDay() const = 0;
+
+        double getJulianDay(const bool& modified = false) const;
 
         void setJulianDay(const double& jday);
 
-        double getModifiedJulianDay() { return m_jday - Epoch; }
+        uint32_t getDaysPerWeek() const;
 
-        size_t getNumberOfDaysInAWeek() const { return m_daysPerWeek; }
+        uint32_t getMonthsPerYear() const;
 
-        size_t getNumberOfMonthsInAYear() const { return m_monthsPerYear; }
+        std::string getName() const;
 
-        std::string getName() const { return m_name; }
-
-        virtual std::string getDateString() const = 0;
-        virtual std::string getWeekDay() const = 0;
-
-        int getWeekDayNumber() const;
+        uint32_t getWeekDayNumber() const;
 
         JulianDay* operator+=(const int& days);
         JulianDay* operator-=(const int& days);
@@ -44,22 +35,28 @@ namespace chorizo
         std::string toString() const;
         friend std::ostream& operator<<(std::ostream& stream, const JulianDay& a);
 
-        friend bool operator> (const JulianDay& lhs, const JulianDay& rhs);
+        friend bool operator>(const JulianDay& lhs, const JulianDay& rhs);
         friend bool operator>=(const JulianDay& lhs, const JulianDay& rhs);
-        friend bool operator< (const JulianDay& lhs, const JulianDay& rhs);
+        friend bool operator<(const JulianDay& lhs, const JulianDay& rhs);
         friend bool operator<=(const JulianDay& lhs, const JulianDay& rhs);
         friend bool operator==(const JulianDay& lhs, const JulianDay& rhs);
         friend bool operator!=(const JulianDay& lhs, const JulianDay& rhs);
 
     protected:
-        virtual void update() = 0;
+        double      m_jday{};
+        std::string m_name{};
+        size_t      m_daysPerWeek{};
+        size_t      m_monthsPerYear{};
+        double      m_epoch{2400000.5};
+
         void updateInternal();
 
+        virtual void update() = 0;
+
     private:
-        static constexpr double Epoch = 2400000.5;
     };
 
-    inline JulianDay::~JulianDay() {}
+    inline JulianDay::~JulianDay() { };
 }
 
 #endif // CHORIZO_JULIANDAY_H_

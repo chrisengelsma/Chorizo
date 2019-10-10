@@ -1,28 +1,53 @@
 #include "JulianDay.h"
 
-#include <Utils/AlmanacConverter.h>
+#include <Utils/Converter.h>
 
 namespace chorizo
 {
+
+    double JulianDay::getJulianDay(const bool& modified) const
+    {
+        return (modified) ? m_jday : m_jday - m_epoch;
+    }
+
     void JulianDay::setJulianDay(const double& jday)
     {
         m_jday = jday;
         update();
     }
 
-    int JulianDay::getWeekDayNumber() const
+    uint32_t JulianDay::getDaysPerWeek() const
     {
-        return static_cast<int>(std::floor(m_jday + 1.5)) % getNumberOfDaysInAWeek();
+        return m_daysPerWeek;
+    }
+
+    uint32_t JulianDay::getMonthsPerYear() const
+    {
+        return m_monthsPerYear;
+    }
+
+    std::string JulianDay::getName() const
+    {
+        return m_name;
+    }
+
+    uint32_t JulianDay::getWeekDayNumber() const
+    {
+        return static_cast<unsigned int>(std::floor(m_jday + 1.5)) % getDaysPerWeek();
     }
 
     JulianDay* JulianDay::operator+=(const int& days)
     {
-        return nullptr;
+        m_jday += days;
+        update();
+        return this;
     }
 
     JulianDay* JulianDay::operator-=(const int& days)
     {
-        return nullptr;
+        m_jday -= days;
+        update();
+        return this;
     }
 
     std::string JulianDay::toString() const
@@ -68,6 +93,6 @@ namespace chorizo
 
     void JulianDay::updateInternal()
     {
-        m_jday = AlmanacConverter::ToJulianDay(this);
+        m_jday = Converter::ToJulianDay(this);
     }
 }
