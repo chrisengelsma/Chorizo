@@ -1,5 +1,5 @@
-#ifndef CHORIZO_CALENDARCONSTANTS_H_
-#define CHORIZO_CALENDARCONSTANTS_H_
+#ifndef CHORIZO_CONSTANTS_H_
+#define CHORIZO_CONSTANTS_H_
 
 #include "StdAfx.h"
 
@@ -13,4 +13,4 @@ namespace chorizo
     };
 }
 
-#endif // CHORIZO_CALENDARCONSTANTS_H_
+#endif //CHORIZO_CONSTANTS_H_
