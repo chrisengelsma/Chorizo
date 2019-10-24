@@ -1,15 +1,16 @@
 #ifndef CHORIZO_CHORIZO_H_
 #define CHORIZO_CHORIZO_H_
 
-#include "Astro/Season.h"
-#include "Astro/Meeus.h"
+#include <Astro/Season.h>
+#include <Astro/Meeus.h>
 
-#include "Const/CalendarConstants.h"
+#include <Calendars/Calendar.h>
+#include <Calendars/JulianCalendar.h>
+#include <Calendars/GregorianCalendar.h>
 
-#include "Date/JulianDay.h"
-#include "Date/GregorianCalendar.h"
-
-#include "Utils/Maths.h"
-#include "Utils/Converter.h"
+#include <Utils/Constants.h>
+#include <Utils/Converter.h>
+#include <Utils/Helpers.h>
+#include <Utils/Maths.h>
 
 #endif

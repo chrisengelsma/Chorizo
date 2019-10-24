@@ -1,11 +1,13 @@
 #ifndef CHORIZO_MATHS_H_
 #define CHORIZO_MATHS_H_
 
-#include "StdAfx.h"
+#ifndef CHORIZO_STDAFX_H_
+#include <StdAfx.h>
+#endif
 
 namespace chorizo
 {
-    class Maths
+    class CHORIZO_EXPORT Maths
     {
 
     public:

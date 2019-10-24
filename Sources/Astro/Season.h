@@ -1,9 +1,16 @@
 #ifndef CHORIZO_SEASON_H_
 #define CHORIZO_SEASON_H_
 
+#ifndef CHORIZO_STDAFX_H_
+#include <StdAfx.h>
+#endif
+
 namespace chorizo
 {
-    enum Season
+    /**
+     * @brief A Season.
+     */
+    enum CHORIZO_EXPORT Season
     {
         Spring = 0,
         Summer = 1,
@@ -12,4 +19,4 @@ namespace chorizo
     };
 }
 
-#endif //CHORIZO_SEASON_H_
+#endif // CHORIZO_SEASON_H_

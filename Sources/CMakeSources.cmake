@@ -1,21 +1,23 @@
 # All of these will be set as PUBLIC sources to Chorizo
 set(_temp_chorizo_headers
+        Utils/Maths.h
         Astro/Season.h
         Astro/Meeus.h
-        Helpers/CalendarConstants.h
-        Date/JulianDay.h
-        Date/GregorianCalendar.h
-        Utils/Maths.h
+        Utils/Constants.h
+        Calendars/Calendar.h
+        Calendars/JulianCalendar.h
+        Calendars/GregorianCalendar.h
+        Utils/Helpers.h
         Utils/Converter.h
         )
 
 # All of these will be set as PRIVATE sources to Chorizo
 set(_temp_chorizo_sources
         Astro/Meeus.cpp
-        Helpers/CalendarConstants.cpp
-        Date/JulianDay.cpp
-        Date/GregorianCalendar.cpp
-        Utils/Converter.inl
+        Calendars/Calendar.cpp
+        Calendars/JulianCalendar.cpp
+        Calendars/GregorianCalendar.cpp
+        Utils/Converter.cpp
         )
 
 # Adds the precompiled header

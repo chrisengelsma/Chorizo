@@ -1,7 +1,5 @@
 #include "Meeus.h"
 
-#include <Utils/Maths.h>
-
 namespace chorizo
 {
     double Meeus::Equinox(const int& year, const chorizo::Season& season)

@@ -2,9 +2,10 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 project(Chorizo VERSION 0.0.1 LANGUAGES C CXX)
 
-option(BUILD_SHARED_LIBS "Build Shared Libraries" ON)
-option(BUILD_TESTS "Build Tests" ON)
-option(CODE_COVERAGE "Code Coverage" OFF)
+option(BUILD_SHARED_LIBS "Build Shared Libraries" ON )
+option(BUILD_TESTS       "Build Tests"            ON )
+option(BUILD_DOC         "Build Documentation"    ON )
+option(CODE_COVERAGE     "Code Coverage"          OFF)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -57,12 +58,37 @@ include(FetchContent)
 # Find Threads
 find_package(Threads REQUIRED)
 
+# Find Doxygen
+find_package(Doxygen
+             REQUIRED dot
+             OPTIONAL_COMPONENTS mscgen dia)
+
+if (DOXYGEN_FOUND)
+    # set input and output files
+    set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/Docs/Doxyfile.in)
+    set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+
+    # request to configure the file
+    configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
+    message("Doxygen build started")
+
+    # note the option ALL which allows to build the docs together with the application
+    add_custom_target(doc_doxygen ALL
+            COMMAND           ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+            COMMENT           "Generating API documentation with Doxygen"
+            VERBATIM )
+
+else (DOXYGEN_FOUND)
+    message("Doxygen need to be installed to generate the doxygen documentation")
+endif ()
+
 add_subdirectory(Sources)
 
 if (CHORIZO_INSTALL_RESOURCES)
     # Install resources for end-user usage
     # because many source files use these
-    install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Resources"
+    install(DIRECTORY   "${CMAKE_CURRENT_SOURCE_DIR}/Resources"
             DESTINATION "${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}")
 endif ()
 

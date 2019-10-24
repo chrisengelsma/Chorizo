@@ -2,9 +2,27 @@
 
 namespace chorizo
 {
-    double Calendar::getJulianDay(const bool& modified) const
+    Calendar::Calendar()
     {
-        return (modified) ? m_jday - Epoch : m_jday;
+    }
+
+    Calendar::Calendar(const Calendar& cal)
+        : m_jday(cal.m_jday)
+    {
+    }
+
+    Calendar::Calendar(const double& jday)
+        : m_jday(jday)
+    {
+    }
+
+    void Calendar::updateInternal()
+    {
+    }
+
+    double Calendar::getJulianDay(const bool& modified, const double& epoch) const
+    {
+        return (modified) ? m_jday - getEpoch() : m_jday;
     }
 
     uint32_t Calendar::getWeekDayNumber() const

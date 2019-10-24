@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CHORIZO_STDAFX_H_
+#define CHORIZO_STDAFX_H_
 
 #include <algorithm>
 #include <array>
@@ -31,6 +32,8 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+
+#endif
 
 using namespace std::chrono_literals;
 

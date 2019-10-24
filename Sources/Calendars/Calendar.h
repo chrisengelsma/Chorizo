@@ -1,5 +1,5 @@
-#ifndef CHORIZO_BASECALENDAR_H_
-#define CHORIZO_BASECALENDAR_H_
+#ifndef CHORIZO_CALENDAR_H_
+#define CHORIZO_CALENDAR_H_
 
 #ifndef CHORIZO_STDAFX_H_
 #include <StdAfx.h>
@@ -7,15 +7,18 @@
 
 namespace chorizo
 {
-    class GregorianCalendar;
-
-    class CHORIZO_EXPORT BaseCalendar
+    class CHORIZO_EXPORT Calendar
     {
+    private:
+        static constexpr double Epoch{2400000.5};
 
     public:
-        static constexpr double Epoch = 2400000.5;
 
-        virtual ~BaseCalendar() = 0;
+        Calendar();
+        Calendar(const Calendar& a);
+        Calendar(const double& jday);
+
+        virtual ~Calendar() = 0;
 
         virtual std::string getName() const = 0;
         virtual std::string getDateString() const = 0;
@@ -24,19 +27,20 @@ namespace chorizo
         virtual uint32_t getDaysPerWeek() const = 0;
         virtual uint32_t getMonthsPerYear() const = 0;
         virtual uint32_t getDaysInMonth() const = 0;
+        virtual const double getEpoch() const { return Calendar::Epoch; }
 
-        double getJulianDay(const bool& modified = false) const;
+        double getJulianDay(const bool& modified = false, const double& epoch = 0) const;
         uint32_t getWeekDayNumber() const;
 
-        std::string toString() const;
-        friend std::ostream& operator<<(std::ostream& stream, const BaseCalendar& a);
+        virtual std::string toString() const;
+        friend std::ostream& operator<<(std::ostream& stream, const Calendar& a);
 
-        friend bool operator>(const BaseCalendar& lhs, const BaseCalendar& rhs);
-        friend bool operator>=(const BaseCalendar& lhs, const BaseCalendar& rhs);
-        friend bool operator<(const BaseCalendar& lhs, const BaseCalendar& rhs);
-        friend bool operator<=(const BaseCalendar& lhs, const BaseCalendar& rhs);
-        friend bool operator==(const BaseCalendar& lhs, const BaseCalendar& rhs);
-        friend bool operator!=(const BaseCalendar& lhs, const BaseCalendar& rhs);
+        friend bool operator>(const Calendar& lhs, const Calendar& rhs);
+        friend bool operator>=(const Calendar& lhs, const Calendar& rhs);
+        friend bool operator<(const Calendar& lhs, const Calendar& rhs);
+        friend bool operator<=(const Calendar& lhs, const Calendar& rhs);
+        friend bool operator==(const Calendar& lhs, const Calendar& rhs);
+        friend bool operator!=(const Calendar& lhs, const Calendar& rhs);
 
     protected:
         double m_jday{};
@@ -45,7 +49,7 @@ namespace chorizo
 
     };
 
-    inline BaseCalendar::~BaseCalendar() { }
+    inline Calendar::~Calendar() { }
 }
 
-#endif //CHORIZO_BASECALENDAR_H_
+#endif //CHORIZO_CALENDAR_H_

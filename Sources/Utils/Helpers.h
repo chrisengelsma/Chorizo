@@ -1,12 +1,17 @@
-#ifndef CHORIZO_CALENDARUTILS_H_
-#define CHORIZO_CALENDARUTILS_H_
+#ifndef CHORIZO_HELPERS_H_
+#define CHORIZO_HELPERS_H_
 
-#include <Date/Calendar.h>
+#ifndef CHORIZO_CALENDAR_H_
+#include <Calendars/Calendar.h>
+#endif
+
+#ifndef CHORIZO_STDAFX_H_
 #include <StdAfx.h>
+#endif
 
 namespace chorizo
 {
-    class CalendarUtils
+    class CHORIZO_EXPORT Helpers
     {
     public:
         static const bool DatesAreReverseChronological(std::vector<Calendar*>& dates)
@@ -29,4 +34,4 @@ namespace chorizo
     };
 }
 
-#endif // CHORIZO_CALENDARUTILS_H_
+#endif //CHORIZO_HELPERS_H_

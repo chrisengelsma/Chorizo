@@ -1,5 +1,5 @@
 /**
- * @class Meeus
+ * @class chorizo::Meeus
  * @brief Astronomical equations derived by Belgian Astronomer Jean Meeus.
  *
  * @author Chris Engelsma <chris.engelsma@gmail.com>
@@ -9,11 +9,21 @@
 #ifndef CHORIZO_MEEUS_H_
 #define CHORIZO_MEEUS_H_
 
-#include "Season.h"
+#ifndef CHORIZO_SEASON_H_
+#include <Astro/Season.h>
+#endif
+
+#ifndef CHORIZO_MATHS_H_
+#include <Utils/Maths.h>
+#endif
+
+#ifndef CHORIZO_STDAFX_H_
+#include <StdAfx.h>
+#endif
 
 namespace chorizo
 {
-    class Meeus
+    class CHORIZO_EXPORT Meeus
     {
     public:
         static const double J2000;

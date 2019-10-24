@@ -22,28 +22,25 @@
 #ifndef CHORIZO_GREGORIANCALENDAR_H_
 #define CHORIZO_GREGORIANCALENDAR_H_
 
-#ifndef CHORIZO_CALENDAR_H_
-#include <Date/Calendar.h>
+#ifndef CHORIZO_JULIANCALENDAR_H_
+#include <Calendars/JulianCalendar.h>
+#endif
 
+#ifndef CHORIZO_CONSTANTS_H_
+#include <Utils/Constants.h>
 #endif
 
 #ifndef CHORIZO_STDAFX_H_
 #include <StdAfx.h>
 #endif
 
+
 namespace chorizo
 {
 
-    class CHORIZO_EXPORT GregorianCalendar : public virtual Calendar
+    class CHORIZO_EXPORT GregorianCalendar : public virtual JulianCalendar
     {
-    private:
-        int m_year{};
-        int m_month{};
-        int m_day{};
-
     public:
-        static constexpr double Epoch = 2299160.5;
-
         /**
          * @brief Determines if a given year is a leap year.
          *
@@ -58,72 +55,26 @@ namespace chorizo
          */
         static const bool IsLeapYear(const int& year, const bool& proleptic = true);
 
-        /**
-         * @brief Gets the number of days for a given month within a given year.
-         *
-         * @param year   a year.
-         * @param month  a month.
-         * @return       the number of days in the month.
-         */
         static const uint32_t DaysInMonth(const int& year, const int& month);
 
-        /**
-         * @brief Returns an array of month lengths for a given year.
-         *
-         * @param year  a year.
-         * @return      an array[12] of month lengths.
-         */
         static const std::vector<uint32_t> MonthLengths(const int& year);
-
-        /**
-         * @brief Gets the name of a given month.
-         * @param month  a month number in the range [1, 12].
-         * @return       the name of the month.
-         */
-        static const std::string MonthName(int month);
-
-        /**
-         * @brief Gets the week day name for a week day number.
-         * @param weekDayNumber  a week day number [0, 6].
-         * @return               the name of the weekday.
-         */
-        static const std::string WeekDayName(int weekDayNumber);
 
         GregorianCalendar();
         GregorianCalendar(const GregorianCalendar& cal);
         GregorianCalendar(const int& year, const int& month, const int& day);
         explicit GregorianCalendar(const double& jday);
-        explicit GregorianCalendar(Calendar* almanac);
+        explicit GregorianCalendar(Calendar* cal);
 
-        bool isLeapYear() const;
+        virtual ~GregorianCalendar() { };
 
-        int getYear() const
-        { return m_year; }
-        int getMonth() const
-        { return m_month; }
-        int getDay() const
-        { return m_day; }
+        virtual uint32_t getDaysInMonth() const override;
 
-
-        void setDay(const int& day);
-        void setMonth(const int& month);
-        void setYear(const int& year);
-
+        bool isLeapYear() const override;
 
         // virtual
-        std::string getName() const override
-        { return "Gregorian Calendar"; }
-        std::string getDateString() const override;
-        std::string getWeekDayName() const override;
-        std::string getMonthName() const override;
-        uint32_t getDaysPerWeek() const override
-        { return 7; }
-        uint32_t getMonthsPerYear() const override
-        { return 12; }
-        uint32_t getDaysInMonth() const override;
-
+        virtual std::string getName() const override { return "Gregorian Calendar"; }
     protected:
-        void updateInternal() override;
+        virtual void updateInternal() override;
     };
 }
 
